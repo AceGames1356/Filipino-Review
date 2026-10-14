@@ -16,6 +16,21 @@
 <section id="flashcardsPage" class="hidden"><button class="back" onclick="showPage('home')">← Back home</button><div class="sectionhead" style="margin-top:0"><div><h2>Flashcards 🃏</h2><p>Try to remember the meaning before revealing it.</p></div></div><div class="panel center"><div class="muted" id="flashCount"></div><div class="flashcard"><div><h3 id="flashTerm">Kuwentong-bayan</h3><p id="flashMeaning" class="hidden"></p></div></div><button class="back" id="revealFlash">Reveal meaning</button> <button class="primary" id="nextFlash">Next card →</button></div></section>
 </main><footer>Made for practice, not perfection. Progress is saved in this browser.</footer>
 <script>
+(function(){
+  function showProblem(message){
+    var box=document.getElementById('sprintDebug');
+    if(!box){box=document.createElement('div');box.id='sprintDebug';box.style.cssText='position:fixed;z-index:99999;left:10px;right:10px;bottom:10px;background:#fff0ef;color:#8a211b;border:2px solid #e94f45;border-radius:12px;padding:14px;font:14px system-ui;box-shadow:0 5px 25px #0003';document.body.appendChild(box)}
+    box.textContent='Filipino Sprint error: '+message;
+  }
+  window.addEventListener('error',function(e){showProblem(e.message||'JavaScript failed to load')});
+  window.addEventListener('unhandledrejection',function(e){showProblem(String(e.reason||'Unexpected script error'))});
+  window.addEventListener('DOMContentLoaded',function(){
+    var b=document.createElement('div');b.id='sprintStatus';b.textContent='Filipino Sprint loaded';b.style.cssText='position:fixed;z-index:99998;right:8px;bottom:8px;background:#e5f7eb;color:#185b35;border-radius:8px;padding:6px 9px;font:12px system-ui;opacity:.9';document.body.appendChild(b);
+    setTimeout(function(){if(b.parentNode)b.parentNode.removeChild(b)},5000);
+  });
+})();
+</script>
+<script>
 const lessons=[
 ['Kuwentong-bayan','Story type','A traditional story passed down through generations. It can reflect a community’s culture, beliefs, and traditions, and often teaches a lesson.'],['Alamat','Story type','A legend that explains the origin of a place, plant, animal, object, or event.'],['Simula (Exposition)','Plot','The beginning. It introduces the characters and setting.'],['Papataas na Aksyon (Rising Action)','Plot','Events that build tension and lead toward the biggest moment.'],['Kasukdulan (Climax)','Plot','The most intense or important turning point in the story.'],['Pababang Aksyon (Falling Action)','Plot','Events after the climax that move the story toward its ending.'],['Wakas / Kalutasan (Resolution)','Plot','The ending, when the main problem is resolved or the story concludes.'],['Tauhan (Characters)','Story element','The people, animals, or other beings who take part in the story.'],['Tagpuan (Setting)','Story element','Where and when the story happens. It can include the place, time, or historical period.'],['Banghay (Plot)','Story element','The sequence or order of events in a story.'],['Suliranin (Problem)','Story element','The main trouble or challenge that needs to be dealt with.'],['Tunggalian (Conflict)','Story element','The struggle in a story: person vs. person, self, nature, or society.'],['Aral (Moral/Lesson)','Story element','The lesson a reader can learn from the story.'],['Mensahe (Message)','Story element','The main point or idea the author wants readers to understand.'],['Pahiwatig (Implication)','Story element','An idea suggested indirectly rather than stated clearly.'],['Kaisipan (Main idea)','Story element','The central idea or most important point of a story.'],['Person vs. Person','Conflict','A character struggles against another character.'],['Person vs. Self','Conflict','A character struggles with their own thoughts, choices, or feelings.'],['Person vs. Nature','Conflict','A character struggles against a natural force, such as a storm or flood.'],['Person vs. Society','Conflict','A character struggles against rules, expectations, or a group in society.']
 ].map(([term,tag,meaning])=>({term,tag,meaning}));
